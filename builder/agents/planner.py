@@ -5,9 +5,9 @@ Converts user prompt into a structured project plan.
 
 import json
 import re
-from agent.llm import get_llm
-from agent.states import Plan, File, AgentPhase
-from agent.prompts import planner_prompt
+from builder.llm import get_llm
+from builder.states import Plan, File, AgentPhase
+from builder.prompts import planner_prompt
 
 
 def parse_plan_from_error(error_message: str):

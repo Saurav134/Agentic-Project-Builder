@@ -21,8 +21,8 @@ load_dotenv(override=True)
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from agent.graph import agent, print_graph_structure
-from agent.tools import init_project_root, get_project_root
+from builder.graph import agent, print_graph_structure
+from builder.tools import init_project_root, get_project_root
 
 
 console = Console()

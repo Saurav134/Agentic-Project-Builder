@@ -6,9 +6,9 @@ Creates final documentation and wraps up the project.
 import re
 from datetime import datetime
 
-from agent.llm import get_llm
-from agent.states import Plan, CoderState, AgentPhase
-from agent.tools import list_files, get_project_root, write_file
+from builder.llm import get_llm
+from builder.states import Plan, CoderState, AgentPhase
+from builder.tools import list_files, get_project_root, write_file
 
 
 def finalizer_agent(state: dict) -> dict:
@@ -23,8 +23,6 @@ def finalizer_agent(state: dict) -> dict:
     print(f"{'='*50}\n")
 
     if plan is None:
-        print("Plan object:", plan)
-        print("Plan features:", getattr(plan, "features", None))
 
         project_path = str(get_project_root())
         return {
@@ -34,8 +32,6 @@ def finalizer_agent(state: dict) -> dict:
             "project_path": project_path,
             "completed_at": datetime.now(),
         }
-    print("Plan object:", plan)
-    print("Plan features:", getattr(plan, "features", None))
 
     files_list = list_files.invoke({"directory": "."})
     files_created = []

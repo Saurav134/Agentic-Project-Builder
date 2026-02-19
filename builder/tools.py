@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Project output directory
+
 PROJECT_ROOT = pathlib.Path(
     os.getenv("PROJECT_OUTPUT_DIR", "generated_project")
 ).resolve()
@@ -27,13 +27,12 @@ def safe_path_for_project(path: str) -> pathlib.Path:
     """
     Ensure the path is within the project root to prevent directory traversal attacks.
     """
-    # Handle absolute paths by making them relative
+
     if pathlib.Path(path).is_absolute():
         path = pathlib.Path(path).name
 
     p = (PROJECT_ROOT / path).resolve()
 
-    # Security check: ensure path is within project root
     try:
         p.relative_to(PROJECT_ROOT.resolve())
     except ValueError:
@@ -48,9 +47,6 @@ def init_project_root() -> str:
     """Initialize the project root directory."""
     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
     return str(PROJECT_ROOT)
-
-
-# ============== File Tools ==============
 
 
 @tool
@@ -186,9 +182,6 @@ def create_directory(path: str) -> str:
         return f"ERROR: Failed to create directory {path}: {str(e)}"
 
 
-# ============== Command Execution Tools ==============
-
-
 @tool
 def run_command(cmd: str, timeout: int = 30) -> str:
     """
@@ -229,9 +222,6 @@ def run_command(cmd: str, timeout: int = 30) -> str:
         return f"ERROR: Command timed out after {timeout} seconds"
     except Exception as e:
         return f"ERROR: Failed to execute command: {str(e)}"
-
-
-# ============== Validation Tools ==============
 
 
 @tool
@@ -290,9 +280,6 @@ def validate_json_syntax(path: str) -> str:
         return f"ERROR: Validation failed: {str(e)}"
 
 
-# ============== Project Context Tools ==============
-
-
 def get_all_project_files() -> dict[str, str]:
     """
     Get all files in the project with their contents.
@@ -345,7 +332,6 @@ def get_project_context_summary(
     return "\n\n".join(summaries)
 
 
-# List of all tools for easy import
 ALL_TOOLS = [
     write_file,
     read_file,

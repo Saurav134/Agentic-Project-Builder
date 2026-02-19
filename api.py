@@ -20,8 +20,8 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 # Import agent components
-from agent.graph import agent
-from agent.tools import init_project_root, get_project_root, list_files
+from builder.graph import agent
+from builder.tools import init_project_root, get_project_root, list_files
 
 # Initialize FastAPI
 app = FastAPI(

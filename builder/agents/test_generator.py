@@ -3,10 +3,10 @@ Test Generator Agent
 Generates test cases for the project.
 """
 
-from agent.llm import get_llm
-from agent.states import TaskPlan, TestPlan, TestCase, AgentPhase
-from agent.prompts import test_generator_prompt
-from agent.tools import get_all_project_files, write_file
+from builder.llm import get_llm
+from builder.states import TaskPlan, TestPlan, TestCase, AgentPhase
+from builder.prompts import test_generator_prompt
+from builder.tools import get_all_project_files, write_file
 
 
 def detect_project_type(plan, files_content: dict) -> str:
