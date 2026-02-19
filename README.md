@@ -1,4 +1,4 @@
-# 🚀 Agentic Project Builder
+#  Agentic Project Builder
 
 A multi-agent AI system that automatically generates complete software
 projects from a single natural language prompt.
@@ -9,7 +9,7 @@ project end-to-end.
 
 ------------------------------------------------------------------------
 
-## 🧠 Agent Architecture
+##  Agent Architecture
 
 The system operates as a **state-driven multi-agent workflow**
 orchestrated by LangGraph.
@@ -19,7 +19,7 @@ the next stage, forming a self-correcting software generation loop.
 
 ------------------------------------------------------------------------
 
-## 🔁 Workflow Overview
+##  Workflow Overview
 
     User Prompt
         ↓
@@ -50,9 +50,9 @@ This design creates two convergence loops:
 
 ------------------------------------------------------------------------
 
-## 🤖 Agent Responsibilities
+##  Agent Responsibilities
 
-### 🧩 Planner Agent
+###  Planner Agent
 
 Transforms the user prompt into a structured project plan including: -
 project name - tech stack - features - files to create
@@ -61,7 +61,7 @@ This acts as the blueprint for the system.
 
 ------------------------------------------------------------------------
 
-### 🏗 Architect Agent
+###  Architect Agent
 
 Expands the plan into detailed implementation tasks.
 
@@ -72,7 +72,7 @@ This converts *what to build* into *how to build it*.
 
 ------------------------------------------------------------------------
 
-### 💻 Coder Agent
+###  Coder Agent
 
 Implements files one-by-one using the task plan.
 
@@ -83,7 +83,7 @@ This is the execution engine of the system.
 
 ------------------------------------------------------------------------
 
-### 🔍 Reviewer Agent
+###  Reviewer Agent
 
 Performs automated code review.
 
@@ -93,7 +93,7 @@ If issues exist, the system enters the repair loop.
 
 ------------------------------------------------------------------------
 
-### 🛠 Fixer Agent
+###  Fixer Agent
 
 Automatically repairs issues flagged by the reviewer.
 
@@ -103,7 +103,7 @@ This creates a **self-healing generation cycle**.
 
 ------------------------------------------------------------------------
 
-### 🧪 Test Generator Agent
+###  Test Generator Agent
 
 Creates tests based on project type:
 
@@ -114,7 +114,7 @@ Ensures the project is verifiable.
 
 ------------------------------------------------------------------------
 
-### ▶️ Test Runner Agent
+###  Test Runner Agent
 
 Executes tests or provides testing instructions.
 
@@ -122,7 +122,7 @@ Produces: - pass/fail results - outputs/logs
 
 ------------------------------------------------------------------------
 
-### 📦 Finalizer Agent
+###  Finalizer Agent
 
 Completes the project by generating:
 
@@ -132,7 +132,7 @@ Completes the project by generating:
 
 ------------------------------------------------------------------------
 
-## ▶️ Running the Project
+##  Running the Project
 
 ### CLI Mode
 
@@ -169,7 +169,7 @@ Enter your prompt and watch the pipeline execute in real time.
 
 ------------------------------------------------------------------------
 
-## 📦 Output
+##  Output
 
 Generated projects are saved in:
 
@@ -181,7 +181,7 @@ This location is configurable via:
 
 ------------------------------------------------------------------------
 
-## 🧩 Tech Stack
+##  Tech Stack
 
 -   LangGraph -- orchestration
 -   LangChain -- tools & prompts
@@ -192,7 +192,7 @@ This location is configurable via:
 
 ------------------------------------------------------------------------
 
-## 👨‍💻 Author
+##  Author
 
 **Saurav Deshpande**
 
