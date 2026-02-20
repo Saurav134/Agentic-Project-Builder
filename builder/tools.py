@@ -10,6 +10,9 @@ from typing import Tuple
 from langchain_core.tools import tool
 from dotenv import load_dotenv
 
+import shutil
+from pathlib import Path
+
 load_dotenv()
 
 
@@ -45,6 +48,8 @@ def safe_path_for_project(path: str) -> pathlib.Path:
 
 def init_project_root() -> str:
     """Initialize the project root directory."""
+    if PROJECT_ROOT.exists():
+        shutil.rmtree(PROJECT_ROOT)
     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
     return str(PROJECT_ROOT)
 
@@ -330,6 +335,12 @@ def get_project_context_summary(
         summaries.append(f"### {path}\n```\n{truncated}\n```")
 
     return "\n\n".join(summaries)
+
+
+def zip_project(project_root: Path) -> Path:
+    zip_path = project_root.parent / f"{project_root.name}.zip"
+    shutil.make_archive(str(project_root), "zip", str(project_root))
+    return zip_path
 
 
 ALL_TOOLS = [

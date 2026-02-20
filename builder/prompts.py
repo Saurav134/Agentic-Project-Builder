@@ -20,6 +20,12 @@ def planner_prompt(user_prompt: str) -> str:
 5. files: List of files to create (array of objects with "path" and "purpose")
 6. architecture_notes: Optional notes (string)
 
+IMPORTANT:
+You MUST return your answer using the Plan function.
+Do NOT return plain text.
+Do NOT explain anything.
+Return ONLY the structured function call.
+
 ## Guidelines:
 - For web apps: use HTML/CSS/JavaScript only (no config files)
 - For Python apps: include requirements.txt if needed
@@ -46,11 +52,15 @@ def architect_prompt(plan_json: str) -> str:
 4. expected_exports: What this file provides (array of strings)
 5. priority: Order number, 0 = first (integer)
 
-## Priority Order:
+## Priority Order for web apps:
 - 0: HTML files first
 - 1: CSS files second  
 - 2: JavaScript files last (so they can reference HTML element IDs)
 
+## Priority Order for python code:
+ - Create the requirement.txt at the end when all the project files are generated.
+ - main.py should be created once all other python files are done.
+ - For Python project, Always use python 3.13.3
 ## CRITICAL - NAMING CONSISTENCY:
 
 In the HTML task description, you MUST define a "Element IDs" section that lists ALL interactive elements with their exact IDs. Use this format:

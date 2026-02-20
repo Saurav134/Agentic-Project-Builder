@@ -150,7 +150,7 @@ def fixer_agent(state: dict) -> dict:
             if not content or content.startswith("ERROR"):
                 print(f"  ERROR: Cannot read file '{filepath}'")
                 failed_fixes.append((filepath, "Cannot read file"))
-                continue
+                # continue
 
             original_length = len(content)
             file_ext = filepath.split(".")[-1].lower() if "." in filepath else ""

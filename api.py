@@ -11,17 +11,20 @@ from datetime import datetime
 from pathlib import Path
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+
+
+import shutil
 
 
 load_dotenv(override=True)
 
 # Import agent components
 from builder.graph import agent
-from builder.tools import init_project_root, get_project_root, list_files
+from builder.tools import init_project_root, get_project_root, list_files, zip_project
 
 # Initialize FastAPI
 app = FastAPI(
@@ -181,6 +184,20 @@ async def websocket_generate(websocket: WebSocket):
             await websocket.close()
         except:
             pass
+
+
+@app.get("/api/download")
+async def download_project():
+    project_root = Path(get_project_root())
+
+    if not project_root.exists():
+        raise HTTPException(status_code=404, detail="No project found")
+
+    zip_path = zip_project(project_root)
+
+    return FileResponse(
+        zip_path, filename="generated_project.zip", media_type="application/zip"
+    )
 
 
 # ============== Web UI ==============
@@ -426,12 +443,17 @@ async def get_ui():
                 <button class="btn-primary" id="generateBtn" onclick="startGeneration()">
                     Generate
                 </button>
+
+                <button class="btn-primary" id="downloadBtn" onclick="downloadProject()" disabled>
+                    Download Project
+                </button>
+
             </div>
             <div class="examples">
                 Try: 
                 <span onclick="setPrompt('Build a colorful todo app with HTML, CSS, and JavaScript')">Todo App</span> |
                 <span onclick="setPrompt('Create a Python CLI calculator with basic math operations')">Calculator</span> |
-                <span onclick="setPrompt('Build a simple portfolio website with HTML and CSS')">Portfolio</span>
+                <span onclick="setPrompt('Build a simple portfolio website with HTML, CSS and JS')">Portfolio</span>
             </div>
         </div>
         
@@ -522,6 +544,7 @@ async def get_ui():
                         addLog(data.message, 'complete');
                         addLog('Project saved to: ' + data.project_path, 'complete');
                         setStatus('complete', 'Complete');
+                        updateDownloadButton();
                         break;
                     case 'error':
                         addLog('Error: ' + data.message, 'error');
@@ -539,6 +562,26 @@ async def get_ui():
                 btn.disabled = false;
                 btn.textContent = 'Generate';
             };
+        }
+
+        function downloadProject() {
+            window.open("/api/download", "_blank");
+        }
+    
+        async function updateDownloadButton() {
+            try {
+                const res = await fetch("/api/files");
+                const data = await res.json();
+                const btn = document.getElementById("downloadBtn");
+
+            if (data.files && data.files.length > 0) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+            } catch {
+                document.getElementById("downloadBtn").disabled = true;
+            }
         }
     </script>
 </body>
